@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://vemjogar:master@localhost:5432/vemjogar?schema=public"
+}
+
+model User {
+  id                 Int       @id @default(autoincrement())
+  name               String
+  email              String    @unique
+  password           String
+  age                Int
+  address            String
+  favoriteSport      String?
+  groups             Group[]   @relation("GroupMembers")
+  managedGroups      Group[]   @relation("GroupAdmin")
+}
+
+model Group {
+  id                  Int      @id @default(autoincrement())
+  name                String
+  sport               String
+  minimumAge          Int?     // Optional field for minimum age requirement
+  isPrivate           Boolean
+  isFree              Boolean
+  value               Int?     // Optional field for group cost
+  address             String
+  additionalInformation String?
+  members             User[]   @relation("GroupMembers")
+  admin               User     @relation("GroupAdmin", fields: [adminId], references: [id]) // Relation to User model
+  adminId             Int
+}
