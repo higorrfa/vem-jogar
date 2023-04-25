@@ -16,5 +16,5 @@ export interface IGroup {
     value: number
     address: string
     additionalInformation: string
-    adminID: number
+    adminId: number
 }

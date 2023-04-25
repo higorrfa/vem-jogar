@@ -63,4 +63,17 @@ export class UserController {
         .json({ error: err instanceof Error ? err.message : 'Failed to do something exceptional' });
     }
   }
+
+  async findManagedGroupsByUserId(request: Request, response: Response): Promise<Response> {
+    try {
+      const id = request.params.id;
+      const groups = await userService.findManagedGroupsByUserId(Number(id));
+      return response.status(StatusCodes.OK).send(groups);
+    } catch (err) {
+      if (err instanceof AppError) { return response.status(err.statusCode).json({ error: err.message }); }
+      return response
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ error: err instanceof Error ? err.message : 'Failed to do something exceptional' });
+    }
+  }
 }

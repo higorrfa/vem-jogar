@@ -113,6 +113,19 @@ class UserService {
       }
     });
   }
+
+  async findManagedGroupsByUserId(userId: number) {
+    const groups = await prismaClient.group.findMany({
+      where: {
+        adminId: userId,
+      },
+      include: {
+        admin: true,
+      },
+    });
+
+    return groups;
+  }
 }
 
 export { UserService };
