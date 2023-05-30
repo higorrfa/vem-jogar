@@ -5,17 +5,9 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import axios from 'axios';
 import type { AxiosError } from 'axios';
 import type { ChangeEvent } from 'react';
-import type { SelectChangeEvent } from '@mui/material';
 import {
   FormControl,
-  FormControlLabel,
-  FormHelperText,
-  FormLabel,
   InputLabel,
-  MenuItem,
-  Radio,
-  RadioGroup,
-  Select,
   TextField,
   Typography,
   Input,

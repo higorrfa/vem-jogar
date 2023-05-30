@@ -2,6 +2,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable react/jsx-no-useless-fragment */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { useState, useEffect } from 'react';
 
@@ -34,7 +35,7 @@ interface UserInterface {
 const Members = (): JSX.Element => {
   const { group: groupID } = useParams();
   const { enqueueSnackbar } = useSnackbar();
-  const [group, setGroup] = useState<GroupInterface | undefined>(undefined);
+  const [, setGroup] = useState<GroupInterface | undefined>(undefined);
   const [users, setUsers] = useState<UserInterface[]>([]);
 
   useEffect(() => {
