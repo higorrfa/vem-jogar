@@ -126,6 +126,20 @@ class UserService {
 
     return groups;
   }
+
+  async getUserByEmail(email: string) {
+    const user = await prismaClient.user.findUnique({
+      where: {
+        email
+      }
+    });
+
+    if (!user) {
+      throw new AppError('User not found', StatusCodes.NOT_FOUND);
+    }
+
+    return user;
+  }
 }
 
 export { UserService };
