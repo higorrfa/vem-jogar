@@ -128,23 +128,32 @@ const GroupDetails = (): JSX.Element => {
               {isGroupAdmin && (
                 <>
                   <Link to="invites">
-                    <button type="button">
+                    <button className="group-action-button" type="button">
                       Pedidos <br />
                       de entrada
                     </button>
                   </Link>
                   <Link to="members">
-                    <button type="button" disabled={isLoading}>
+                    <button
+                      className="group-action-button"
+                      type="button"
+                      disabled={isLoading}
+                    >
                       Membros
                     </button>
                   </Link>
-                  <button type="button" disabled={isLoading}>
+                  <button
+                    className="group-action-button"
+                    type="button"
+                    disabled={isLoading}
+                  >
                     Criar evento
                   </button>
                 </>
               )}
               {!isGroupAdmin && !isMember && (
                 <button
+                  className="group-action-button"
                   type="button"
                   onClick={handleAskInvite}
                   disabled={isLoading}
@@ -154,7 +163,11 @@ const GroupDetails = (): JSX.Element => {
                 </button>
               )}
               {(isGroupAdmin || isMember) && (
-                <button type="button" disabled={isLoading}>
+                <button
+                  className="group-action-button"
+                  type="button"
+                  disabled={isLoading}
+                >
                   Eventos
                 </button>
               )}

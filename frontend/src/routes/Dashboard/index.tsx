@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-curly-brace-presence */
+/* eslint-disable no-unused-expressions */
 
 import type { ChangeEvent } from 'react';
 
@@ -15,6 +16,7 @@ import { Fab, Card, CardContent, Typography, Tabs, Tab } from '@mui/material';
 import {
   Delete,
   Edit,
+  FilterAlt,
   Group,
   LocationOn,
   Visibility,
@@ -31,6 +33,8 @@ import ReactPaginate from 'react-paginate';
 import { useModal } from 'hooks/useModal';
 
 import NavBar from 'components/NavBar';
+
+import GroupFilter from './GroupFilter';
 
 import styles, { Main } from './styles';
 
@@ -76,6 +80,7 @@ const Dashboard = (): JSX.Element => {
   const [currentPage, setCurrentPage] = useState(0);
   const [_filter, setFilter] = useState(Constants.initialFilter);
   const [tab, setTab] = useState(0);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const { isOpen, handleOpen, handleClose } = useModal();
   const { enqueueSnackbar } = useSnackbar();
@@ -138,6 +143,45 @@ const Dashboard = (): JSX.Element => {
 
   const pageCount = Math.ceil((rows?.length ?? 0) / ITEMS_PER_PAGE);
 
+  const handleFilter = (filter: any): void => {
+    const filteredRows = groups?.filter(group => {
+      if (
+        filter.name &&
+        !group.name.toLowerCase().includes(filter.name.toLowerCase())
+      ) {
+        return false;
+      }
+      if (
+        filter.sport &&
+        group.sport.toLowerCase() !== filter.sport.toLowerCase()
+      ) {
+        return false;
+      }
+      if (filter.minimumAge && group.minimumAge < filter.minimumAge) {
+        return false;
+      }
+      if (filter.isPrivate && !group.isPrivate) {
+        return false;
+      }
+      if (filter.isFree && !group.isFree) {
+        return false;
+      }
+      if (filter.value && group.value > filter.value) {
+        return false;
+      }
+      if (
+        filter.address &&
+        !group.address.toLowerCase().includes(filter.address.toLowerCase())
+      ) {
+        return false;
+      }
+      return true;
+    });
+    setCurrentPage(0);
+    setRows(filteredRows);
+    setIsFilterOpen(false);
+  };
+
   return (
     <>
       <NavBar />
@@ -159,9 +203,18 @@ const Dashboard = (): JSX.Element => {
                 placeholder="Procurar grupo..."
                 onChange={handleSearch}
               />
+              <Fab size="medium" onClick={() => setIsFilterOpen(!isFilterOpen)}>
+                <FilterAlt />
+              </Fab>
               <Fab sx={styles.button} size="medium" onClick={handleAddOpen}>
                 <AddIcon />
               </Fab>
+              {isFilterOpen && (
+                <GroupFilter
+                  onFilter={handleFilter}
+                  onCancel={() => setIsFilterOpen(false)}
+                />
+              )}
             </div>
             <div className="box">
               <div

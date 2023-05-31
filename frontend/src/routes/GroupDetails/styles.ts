@@ -68,6 +68,9 @@ export const Main = styled.main`
           font-weight: bold;
           font-size: 16px;
           margin-bottom: 12px;
+          background-color: #4368dc;
+          color: white;
+          box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.2);
 
           &:not([disabled]) {
             cursor: pointer;

@@ -62,6 +62,7 @@ export const Main = styled.main`
   }
 
   .search-container {
+    width: 75%;
     display: flex;
     margin-bottom: 12px;
   }
@@ -160,5 +161,5 @@ export const Main = styled.main`
 `;
 
 export default sx({
-  button: { backgroundColor: '#007bff', color: 'white' },
+  button: { backgroundColor: '#4368dc', color: 'white', marginLeft: '14px' },
 });
